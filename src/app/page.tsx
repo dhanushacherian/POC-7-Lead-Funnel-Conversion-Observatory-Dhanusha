@@ -30,6 +30,9 @@ export default function Home() {
   const [isIntelligenceOpen, setIsIntelligenceOpen] =
     useState(false);
 
+  const [selectedStage, setSelectedStage] =
+    useState<string>("Pipeline");
+
   const [isMetadataOpen, setIsMetadataOpen] =
     useState(false);
 
@@ -271,9 +274,10 @@ export default function Home() {
 
             <FunnelChart
               data={filteredData}
-              onStageClick={() =>
-                setIsIntelligenceOpen(true)
-              }
+              onStageClick={(stage) => {
+                setSelectedStage(stage);
+                setIsIntelligenceOpen(true);
+              }}
             />
 
           </div>
@@ -329,9 +333,10 @@ export default function Home() {
 
             <button
               type="button"
-              onClick={() =>
-                setIsIntelligenceOpen(true)
-              }
+              onClick={() => {
+                setSelectedStage("Pipeline");
+                setIsIntelligenceOpen(true);
+              }}
               className="group shrink-0 rounded-xl border border-indigo-300/[0.15] bg-indigo-300/[0.07] px-5 py-3 text-sm font-medium text-indigo-100 transition hover:border-indigo-300/[0.3] hover:bg-indigo-300/[0.12]"
             >
               <span className="mr-2 transition group-hover:mr-3">
@@ -373,6 +378,7 @@ export default function Home() {
         onClose={() =>
           setIsIntelligenceOpen(false)
         }
+        stage={selectedStage}
       />
 
       {/* Developer Metadata */}

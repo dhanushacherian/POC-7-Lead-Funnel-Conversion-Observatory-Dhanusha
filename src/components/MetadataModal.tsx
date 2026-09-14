@@ -12,7 +12,7 @@ export default function MetadataModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[60] flex items-center justify-center px-4">
+    <div className="fixed inset-0 z-[60] flex items-center justify-center px-4 py-6">
       {/* Backdrop */}
       <button
         type="button"
@@ -22,18 +22,18 @@ export default function MetadataModal({
       />
 
       {/* Modal */}
-      <div className="cinematic-enter relative w-full max-w-md overflow-hidden rounded-3xl border border-white/[0.10] bg-[#090b16]/95 shadow-2xl backdrop-blur-2xl">
+      <div className="cinematic-enter relative max-h-[90vh] w-full max-w-md overflow-y-auto rounded-3xl border border-white/[0.10] bg-[#090b16]/95 shadow-2xl backdrop-blur-2xl">
         {/* Glow */}
         <div className="pointer-events-none absolute left-1/2 top-[-180px] h-[350px] w-[350px] -translate-x-1/2 rounded-full bg-indigo-500/[0.10] blur-[100px]" />
 
         {/* Header */}
         <div className="relative flex items-start justify-between border-b border-white/[0.07] px-6 py-5">
-          <div>
+          <div className="min-w-0 pr-4">
             <p className="text-[10px] uppercase tracking-[0.3em] text-indigo-300/50">
               Developer Signature
             </p>
 
-            <h2 className="mt-2 text-xl font-semibold text-white">
+            <h2 className="mt-2 text-xl font-semibold leading-tight text-white">
               Lead Funnel Conversion Observatory
             </h2>
           </div>
@@ -42,7 +42,7 @@ export default function MetadataModal({
             type="button"
             onClick={onClose}
             aria-label="Close"
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.03] text-white/50 transition hover:bg-white/[0.08] hover:text-white"
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.03] text-white/50 transition hover:bg-white/[0.08] hover:text-white"
           >
             ✕
           </button>
@@ -50,6 +50,7 @@ export default function MetadataModal({
 
         {/* Metadata */}
         <div className="relative space-y-3 p-6">
+          {/* Architect */}
           <div className="rounded-2xl border border-white/[0.07] bg-white/[0.025] p-4">
             <p className="text-[9px] uppercase tracking-[0.25em] text-white/25">
               Architect
@@ -60,6 +61,7 @@ export default function MetadataModal({
             </p>
           </div>
 
+          {/* PoC + GitHub */}
           <div className="grid grid-cols-2 gap-3">
             <div className="rounded-2xl border border-white/[0.07] bg-white/[0.025] p-4">
               <p className="text-[9px] uppercase tracking-[0.25em] text-white/25">
@@ -76,12 +78,13 @@ export default function MetadataModal({
                 GitHub
               </p>
 
-              <p className="mt-2 text-sm font-medium text-white/80">
+              <p className="mt-2 whitespace-nowrap text-[13px] font-medium text-white/80">
                 @dhanushacherian
               </p>
             </div>
           </div>
 
+          {/* Technology Stack */}
           <div className="rounded-2xl border border-white/[0.07] bg-white/[0.025] p-4">
             <p className="text-[9px] uppercase tracking-[0.25em] text-white/25">
               Technology Stack
@@ -104,6 +107,7 @@ export default function MetadataModal({
             </div>
           </div>
 
+          {/* Internship */}
           <div className="rounded-2xl border border-indigo-300/[0.10] bg-indigo-300/[0.035] p-4">
             <p className="text-[9px] uppercase tracking-[0.25em] text-indigo-200/40">
               Internship
