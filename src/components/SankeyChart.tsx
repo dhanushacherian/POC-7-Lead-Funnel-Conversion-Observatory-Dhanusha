@@ -13,9 +13,12 @@ export default function SankeyChart({ data }: SankeyChartProps) {
   const chartRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!chartRef.current) return;
+    const container = chartRef.current;
 
-    const chart = echarts.init(chartRef.current);
+    if (!container) return;
+
+    const chart = echarts.init(container);
+    let disposed = false;
 
     const countAtOrAfter = (stages: string[]) =>
       data.filter((lead) => stages.includes(lead.stage)).length;
@@ -119,14 +122,34 @@ export default function SankeyChart({ data }: SankeyChartProps) {
     chart.setOption(option);
 
     const handleResize = () => {
-      chart.resize();
+      if (disposed || chart.isDisposed()) {
+        return;
+      }
+
+      try {
+        chart.resize();
+      } catch {
+        // Ignore resize calls that occur during component teardown.
+      }
     };
 
     window.addEventListener("resize", handleResize);
 
+    const resizeObserver = new ResizeObserver(() => {
+      handleResize();
+    });
+
+    resizeObserver.observe(container);
+
     return () => {
+      disposed = true;
+
       window.removeEventListener("resize", handleResize);
-      chart.dispose();
+      resizeObserver.disconnect();
+
+      if (!chart.isDisposed()) {
+        chart.dispose();
+      }
     };
   }, [data]);
 
